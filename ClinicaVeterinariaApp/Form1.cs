@@ -21,6 +21,8 @@ namespace ClinicaVeterinariaApp
         // Evento que se ejecuta cuando el formulario se carga
         private void Form1_Load(object sender, EventArgs e)
         {
+            dataGridView1.Visible = false;
+
             // Cadena de conexión adaptada para la base de datos AgendaContactos
             string connectionString = "Server=localhost; Database=AgendaContactos; Uid=root; Pwd=;";
 
@@ -75,12 +77,12 @@ namespace ClinicaVeterinariaApp
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+           
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+           
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -96,6 +98,21 @@ namespace ClinicaVeterinariaApp
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Visible = true;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Visible = true;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Visible = true;
         }
     }
 }
