@@ -13,6 +13,8 @@ namespace ClinicaVeterinariaApp
 {
     public partial class Form1 : Form
     {
+        private Form formActual = null; // Mantiene referencia al form actualmente visible
+
         public Form1()
         {
             InitializeComponent();
@@ -21,51 +23,7 @@ namespace ClinicaVeterinariaApp
         // Evento que se ejecuta cuando el formulario se carga
         private void Form1_Load(object sender, EventArgs e)
         {
-            dataGridView1.Visible = false;
 
-            // Cadena de conexión adaptada para la base de datos AgendaContactos
-            string connectionString = "Server=localhost; Database=AgendaContactos; Uid=root; Pwd=;";
-
-            // Crear la conexión a la base de datos
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                   
-
-                    // Consulta SQL para obtener todos los contactos
-                    string query = "SELECT ID, DNI, Nombre, Apellidos, Direccion, Telefono, CP, Localidad, Provincia, CorreoElectronico, Observaciones FROM Contactos";
-
-                    // Crear el adaptador y el DataTable
-                    MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-
-                    // Llenar el DataTable con los datos obtenidos
-                    da.Fill(dt);
-
-                    // Asignar el DataTable al DataGridView para mostrar los datos
-                    dataGridView1.DataSource = dt;
-
-                    // Cambiar el tamaño de las columnas
-                    foreach (DataGridViewColumn column in dataGridView1.Columns)
-                    {
-                        // Ajustar el ancho de las columnas según su contenido
-                        column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
-                        // O, si prefieres un tamaño fijo:
-                        // column.Width = 120;  // Esto asigna un ancho fijo de 120 píxeles
-                    }
-
-                    // Cambiar la altura de las filas
-                    dataGridView1.RowTemplate.Height = 30;  // Establece una altura fija para las filas
-
-                }
-                catch (Exception ex)
-                {
-                    // Mostrar un mensaje de error en caso de fallo
-                    MessageBox.Show("Error al conectar a la base de datos: " + ex.Message);
-                }
-            }
         }
 
 
@@ -77,12 +35,12 @@ namespace ClinicaVeterinariaApp
 
         private void label1_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -97,22 +55,139 @@ namespace ClinicaVeterinariaApp
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonClientes_Click(object sender, EventArgs e)
         {
-            dataGridView1.Visible = true;
+
+            MostrarForm("Clientes");
+
+
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonMascotas_Click(object sender, EventArgs e)
         {
-            dataGridView1.Visible = true;
+            MostrarForm("Mascotas");
+
         }
+
+
 
         private void button3_Click(object sender, EventArgs e)
         {
-            dataGridView1.Visible = true;
+            MostrarForm("Citas");
         }
+
+        private void buttonAñadir_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void buttonModificar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonEliminar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void modificarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void añadirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void borrarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel4_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelMostrar_Paint_2(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void MostrarForm(string tipo)
+        {
+            Form formSiguiente = null;
+
+            if (tipo == "Clientes")
+            {
+                if (formActual == null || formActual.GetType() != typeof(FormClientes))
+                {
+                    formSiguiente = new FormClientes();
+                }
+            }
+            else if (tipo == "Mascotas")
+            {
+                if (formActual == null || formActual.GetType() != typeof(FormMascotas))
+                {
+                    formSiguiente = new FormMascotas();
+                }
+            }
+            else if (tipo == "Citas")
+            {
+                if (formActual == null || formActual.GetType() != typeof(FormCitas))
+                {
+                    formSiguiente = new FormCitas();
+                }
+            }
+
+            if (formSiguiente != null)
+            {
+                ConfigurarForm(formSiguiente);
+                formActual = formSiguiente;
+            }
+        }
+       
+        private void ConfigurarForm(Form form)
+        {
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.TopLevel = false; // No se muestra como una ventana separada
+            form.Dock = DockStyle.Fill;
+            panelMostrar.Controls.Clear(); // Limpia el panel
+            panelMostrar.Controls.Add(form); // Agrega el form al panel
+            form.Show(); // Muestra el form dentro del panel
+        }
+
+
     }
 }
+
